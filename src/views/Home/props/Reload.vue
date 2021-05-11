@@ -182,8 +182,8 @@
     </el-option>
   </el-select>
        </el-form-item>
-       <el-form-item label="穿衣指数" prop="index">
-      <el-select v-model="ReloadForms.index" placeholder="请选择">
+       <el-form-item label="穿衣指数" prop="currentindex">
+      <el-select v-model="ReloadForms.currentindex" placeholder="请选择">
      <el-option
       v-for="item in options1"
       :key="item.value"
@@ -309,7 +309,7 @@ return {
   Reloadrules:{
       title:[{ required: true, message: '请输入穿搭标题', trigger: 'blur' },],
       occassions:[{ required: true, message: '请输入穿搭适应场合', trigger: 'blur' },],
-      index:[{ required: true, message: '请输入穿衣指数', trigger: 'blur' },],
+      currentindex:[{ required: true, message: '请输入穿衣指数', trigger: 'blur' },],
       weather:[{ required: true, message: '请输入穿衣指数', trigger: 'blur' },]
   },
    options:[
@@ -569,7 +569,7 @@ methods: {
                   upData.append('id',_this.ReloadForms.id)
                      upData.append('title',_this.ReloadForms.title)
                    upData.append('occassions',_this.ReloadForms.occassions)
-                     upData.append('index',_this.ReloadForms.index)
+                     upData.append('index',_this.ReloadForms.currentindex)
                        upData.append('weather',_this.ReloadForms.weather)
                    const{data:res}=await request({url:'/updateReload',data:upData,method:"post"})
                    console.log(res)
