@@ -314,11 +314,11 @@ return {
   },
    options:[
     {
-      value: 1,
+      value: '正式场合',
       label: '正式场合'
     },
     {
-      value: 0,
+      value: '非正式场合',
       label: '非正式场合'
     }
   ],
@@ -410,11 +410,6 @@ methods: {
            this.reload=res.datas
            this.total=res.total
            for(let item of this.reload){
-               if(item.occassions==1){
-                  item.occassions="正式场合" 
-               }else{
-                   item.occassions="非正式场合" 
-               }
          let arr= item.img.split(",")
         let arrs= arr.map(item=> {return 'http://localhost:8888/reloadimg/reload/'+item})
         console.log(arrs)
