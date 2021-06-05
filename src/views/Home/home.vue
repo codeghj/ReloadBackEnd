@@ -59,8 +59,7 @@ collapse:false,
  menu:[{authName:'用户管理',children:[{authName:'用户列表',path:'users'}],id:'125'},
        {authName:'商品管理',children:[{authName:'商品列表',path:'goods'}],id:'102'},
         {authName:'穿搭管理',children:[{authName:'穿搭列表',path:'reload'}],id:'145'},
-        {authName:'订单管理',children:[{authName:'订单列表'}],id:'103'},
-        {authName:'数据管理',children:[{authName:'数据列表'}],id:'101'}
+        
  ],
   fonticon:{
         '125':'iconfont icon-yonghu ',

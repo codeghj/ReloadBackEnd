@@ -115,7 +115,7 @@
 </el-upload>
     <el-form :model="ReloadForm" :rules="Reloadrules" ref="ruleForm" label-width="130px" class="demo-ruleForm">
       <el-form-item label="穿搭标题" prop="title">
-      <el-input v-model="ReloadForm.title"></el-input>
+      <el-input v-model="ReloadForm.title" placeholder="标题中需要带性别"></el-input>
        </el-form-item>
        <el-form-item label="穿搭适应场合" prop="occassions">
        <el-select v-model="ReloadForm.occassions" placeholder="请选择">

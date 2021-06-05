@@ -118,7 +118,7 @@
 <!-- 添加商品 -->
 <el-dialog
   :visible.sync="dialogVisible"
-  title="添加商品"
+  :title="title"
   width="50%"
   @close="dialogClose"
   >
@@ -144,7 +144,7 @@
 </el-upload>
   <el-form :model="goodsform" :rules="goodsrules" size="small"  ref="goodsForm" label-width="100px" class="demo-ruleForm">
   <el-form-item label="商品id" prop="id" v-if="isdisable">
-    <el-input v-model="goodsform.id"  ></el-input>
+    <el-input v-model="goodsform.id" placeholder="id以gn开头" ></el-input>
   </el-form-item>
    <el-form-item label="商品名称" prop="title">
     <el-input v-model="goodsform.title"></el-input>
@@ -186,7 +186,6 @@
   </el-form-item>
   </el-form>
   </div>
-  <img src="~@/assets/img/currentindexx.png" alt="">
   </div>
   <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible=false">取 消</el-button>
@@ -221,7 +220,7 @@
   <el-button style="margin-left: 10px;" size="small" type="success" @click="sureDetailsUpload" >上传到服务器</el-button>
   <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
 </el-upload>
- <div class="details-title-header" >上传商品尺码信息</div>
+ <div class="details-title-header" >上传商品尺码信息(只能上传一张图片)</div>
  <el-upload
   action=""
   ref="uploads"
@@ -441,7 +440,8 @@ return {
  updatesizefileList:[],
  updatedetailsfile:[],
  updatesizefile:[],
- update_goods_details:{}
+ update_goods_details:{},
+ title:''
 
 
 };
@@ -534,6 +534,7 @@ queryGoods(){
 },
 addGoods(){
   this.saveorupdate=true
+   this.title='添加商品'
   this.dialogVisible=true
   this.isdisable=true
 },
@@ -619,6 +620,7 @@ httpRequest(param) {
             this.$message.success(res.message)
             if(url==="/uploadFile"){
                this.goodsform.img=res.url
+               console.log(this.goodsform)
             }else if(url==="/uploadGoodsDetails/Img"){
               this.goods_details.detailImg=res.url
             
@@ -639,7 +641,9 @@ httpRequest(param) {
     
     updateGoods(row){
      this.saveorupdate=false
+     this.title='更新商品'
      this.dialogVisible=true
+    
      this.isdisable=false
      let rows=lodash.cloneDeep(row);
      let savestr=[]
@@ -650,6 +654,11 @@ httpRequest(param) {
       console.log(savestr)
     rows.img=savestr.join(",")
     console.log(rows.img)
+    if(rows.occasions==='非正式场合'){
+            rows.occasions=0
+          }else{
+            rows.occasions=1
+          }
      this.goodsform=rows
      console.log(row.img)
     },
@@ -661,6 +670,7 @@ httpRequest(param) {
       this.dialogVisible=false
       this.getGoods()
       this.$message.success("更新成功")
+      this.goodsform={}
     }else{
       this.$message.error("更新失败")
     }
@@ -671,6 +681,7 @@ httpRequest(param) {
       this.$refs.goodsForm.resetFields()
       this.file=[]
       this.fileList=[]
+       this.goodsform={}
     },
     handleClose(){
       this.$confirm('此操作将关闭添加界面, 是否继续?', '提示', {
